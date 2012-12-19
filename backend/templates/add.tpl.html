@@ -15,23 +15,19 @@
 	text-shadow: 0 1px 0 #FFF;
 }
 </style>
-{if $config.self=='themes'}
-<div id="upload_response"></div>
-<iframe id="iframe" name="iframe" src="about:blank" frameborder="0" style="width:100;height:100;border:0px solid #fff;"></iframe>
-<form class="page-form add-form" id="add_form" name="add_form" method="POST" action="{$smarty.server.SCRIPT_NAME}" enctype="multipart/form-data" target="iframe">
-<input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-{else}
 <form class="page-form add-form" id="add_form" name="add_form" method="POST" action="{$smarty.server.SCRIPT_NAME}" >
-  {/if}
-  <div class="content-headline">Add {$config.title|default:$config.self} Form:</div>
+  <div class="content-headline">添加 {$config.title|default:$config.self} 表单:</div>
   {foreach $add_form as $item}
   {if {$dcn} % {$config.dcn}}{/if}
   
-
   {if $item['type']=='text'}
   <div class="input input-{$item['name']}">
     <label for="{$item['id']}">{$item['display_name']} </label>
+    {if $config.self=='emails' && $item['id']=='email'}
     <input name="{$item['name']}" type="text" id="{$item['id']}" class="validate[required]" />
+    {else}
+    <input name="{$item['name']}" type="text" id="{$item['id']}" />
+    {/if}
   </div>
 
   {elseif $item['type']=='password'}
@@ -49,6 +45,7 @@
     <div class="selectWrapper">
       <select name="{$item['name']}" id="{$item['id']}" class="validate[required]">          
     {if $config.self=='users'}{obj->get_level}
+	{elseif $config.self=='emails'}{obj->get_groups_options}
 	{elseif $config.self=='common_users'}{obj->get_groups_options}
 	{/if}          
       </select>
@@ -88,7 +85,7 @@
   </div>
 
   {elseif $item['type']=='checkbox'}
-  {$checked=$item['checked']} {* ???? *}
+  {$checked=$item['checked']}
   <div class="input">
     <label> {$item['display_name']} </label>
     {foreach $item['lists'] as $k=>$v}

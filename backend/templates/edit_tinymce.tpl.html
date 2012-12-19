@@ -10,7 +10,7 @@
       <label for="contents"> Contents: </label>
       <div class="selectWrapper">
         <select id="contents" name="contents" accesskey="L"  style="width:{#select_width#}">
-          <option value="{$cid}"> {$cid} - {$r.title|default:' -- Select -- '} </option>
+          <option value="{$cid}"> {$cid} - {$r.title|default:' -- 请选择 -- '} </option>
           
 	    {foreach $data.contents as $dc}
         

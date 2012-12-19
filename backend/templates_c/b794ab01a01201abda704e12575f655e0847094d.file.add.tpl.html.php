@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 20:02:29
+<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 21:28:13
          compiled from ".//templates/add.tpl.html" */ ?>
-<?php /*%%SmartyHeaderCode:597350d13c554f0481-30976703%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:203750d1506d047192-20394409%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b794ab01a01201abda704e12575f655e0847094d' => 
     array (
       0 => './/templates/add.tpl.html',
-      1 => 1355869583,
+      1 => 1355894886,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '597350d13c554f0481-30976703',
+  'nocache_hash' => '203750d1506d047192-20394409',
   'function' => 
   array (
   ),
@@ -34,18 +34,10 @@ $_smarty_tpl->decodeProperties(array (
 	text-shadow: 0 1px 0 #FFF;
 }
 </style>
-<?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='themes'){?>
-<div id="upload_response"></div>
-<iframe id="iframe" name="iframe" src="about:blank" frameborder="0" style="width:100;height:100;border:0px solid #fff;"></iframe>
-<form class="page-form add-form" id="add_form" name="add_form" method="POST" action="<?php echo (isset($_SERVER['SCRIPT_NAME'])? $_SERVER['SCRIPT_NAME'] : null);?>
-" enctype="multipart/form-data" target="iframe">
-<input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-<?php }else{ ?>
 <form class="page-form add-form" id="add_form" name="add_form" method="POST" action="<?php echo (isset($_SERVER['SCRIPT_NAME'])? $_SERVER['SCRIPT_NAME'] : null);?>
 " >
-  <?php }?>
-  <div class="content-headline">Add <?php echo (($tmp = @(isset($_smarty_tpl->getVariable('config')->value['title']) ? $_smarty_tpl->getVariable('config')->value['title'] : null))===null||$tmp==='' ? (isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null) : $tmp);?>
- Form:</div>
+  <div class="content-headline">添加 <?php echo (($tmp = @(isset($_smarty_tpl->getVariable('config')->value['title']) ? $_smarty_tpl->getVariable('config')->value['title'] : null))===null||$tmp==='' ? (isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null) : $tmp);?>
+ 表单:</div>
   <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable;
  $_from = $_smarty_tpl->getVariable('add_form')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 if ($_smarty_tpl->_count($_from) > 0){
@@ -55,16 +47,21 @@ if ($_smarty_tpl->_count($_from) > 0){
 <?php $_tmp1=ob_get_clean();?><?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('config')->value['dcn']) ? $_smarty_tpl->getVariable('config')->value['dcn'] : null);?>
 <?php $_tmp2=ob_get_clean();?><?php if ($_tmp1%$_tmp2){?><?php }?>
   
-
   <?php if ((isset($_smarty_tpl->tpl_vars['item']->value['type']) ? $_smarty_tpl->tpl_vars['item']->value['type'] : null)=='text'){?>
   <div class="input input-<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null);?>
 ">
     <label for="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null);?>
 "><?php echo (isset($_smarty_tpl->tpl_vars['item']->value['display_name']) ? $_smarty_tpl->tpl_vars['item']->value['display_name'] : null);?>
  </label>
+    <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='emails'&&(isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null)=='email'){?>
     <input name="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null);?>
 " type="text" id="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null);?>
 " class="validate[required]" />
+    <?php }else{ ?>
+    <input name="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null);?>
+" type="text" id="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null);?>
+" />
+    <?php }?>
   </div>
 
   <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['type']) ? $_smarty_tpl->tpl_vars['item']->value['type'] : null)=='password'){?>
@@ -92,6 +89,8 @@ if ($_smarty_tpl->_count($_from) > 0){
 " id="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null);?>
 " class="validate[required]">          
     <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='users'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_level();?>
+
+	<?php }elseif((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='emails'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
 
 	<?php }elseif((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='common_users'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
 
@@ -161,7 +160,7 @@ if ($_smarty_tpl->_count($_from) > 0){
   </div>
 
   <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['type']) ? $_smarty_tpl->tpl_vars['item']->value['type'] : null)=='checkbox'){?>
-  <?php $_smarty_tpl->tpl_vars['checked'] = new Smarty_variable((isset($_smarty_tpl->tpl_vars['item']->value['checked']) ? $_smarty_tpl->tpl_vars['item']->value['checked'] : null), null, null);?> 
+  <?php $_smarty_tpl->tpl_vars['checked'] = new Smarty_variable((isset($_smarty_tpl->tpl_vars['item']->value['checked']) ? $_smarty_tpl->tpl_vars['item']->value['checked'] : null), null, null);?>
   <div class="input">
     <label> <?php echo (isset($_smarty_tpl->tpl_vars['item']->value['display_name']) ? $_smarty_tpl->tpl_vars['item']->value['display_name'] : null);?>
  </label>

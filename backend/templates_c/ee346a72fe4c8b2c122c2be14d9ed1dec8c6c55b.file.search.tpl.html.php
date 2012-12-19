@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 20:33:41
+<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 22:36:50
          compiled from ".//templates/search.tpl.html" */ ?>
-<?php /*%%SmartyHeaderCode:1013550d143a5b3baa8-77100938%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:1473050d16082c2bdb2-05457645%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'ee346a72fe4c8b2c122c2be14d9ed1dec8c6c55b' => 
     array (
       0 => './/templates/search.tpl.html',
-      1 => 1355888976,
+      1 => 1355898998,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1013550d143a5b3baa8-77100938',
+  'nocache_hash' => '1473050d16082c2bdb2-05457645',
   'function' => 
   array (
   ),
@@ -50,29 +50,34 @@ if ($_smarty_tpl->_count($_from) > 0){
 " id="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['id']) ? $_smarty_tpl->tpl_vars['item']->value['id'] : null);?>
 ">
       	<?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='users'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_level();?>
-<?php }?>
-      	<?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='employers'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_payment_types_options();?>
-<?php }?>
+
+       	<?php }elseif((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='emails'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
+
+		<?php }elseif((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='common_users'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
+
+		<?php }?>
         <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='modules'){?>
-		<?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='group'){?> <?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
-
-		<?php }?>
+		  <?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='group'){?> <?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
+ <?php }?>
         <?php }?>
+        
         <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='contents'){?>
-		<?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='mid'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_modules_options();?>
+		  <?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='mid'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_modules_options();?>
 
-		<?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='group'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
+		  <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='group'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_groups_options();?>
 
-		<?php }?>
+		  <?php }?>
         <?php }?>
+        
         <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='resources'){?>
-			<?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='mid'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_modules_options();?>
+		  <?php if ((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='mid'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_modules_options();?>
 
-			<?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='type'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_types_options();?>
+		  <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null)=='type'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_types_options();?>
             
-		<?php }?>
+		  <?php }?>
         <?php }?>
-	<?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='actions'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_keyword_selection();?>
+		
+        <?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='actions'){?><?php echo $_smarty_tpl->smarty->registered_objects['obj'][0]->get_keyword_selection();?>
 <?php }?>
         </select></div></td>
     <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['type']) ? $_smarty_tpl->tpl_vars['item']->value['type'] : null)=='date'){?>

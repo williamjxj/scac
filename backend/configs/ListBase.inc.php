@@ -92,15 +92,8 @@ class ListBase extends BaseClass
 	return $this->coltypes_array;
   }
 
-  /**
-   * <th>Header Title</th><th>...</th>
-   * $this->get_header($this->get_mappings();   benefits.php->[benefits]
-   * Division = group
-   * Address = address, city, province, postalcode "=>" [display_name=sort_column: Address=address]
-   */
   function get_header($section_info)
   {
-	// 'new_key'=>'new key': replace '_' with ' '.
     $nk = ''; $th_ary = array();
     foreach($section_info as $k => $v) {
       $nk = strtr($k, '_', ' ');
@@ -207,6 +200,12 @@ class ListBase extends BaseClass
 			$acy['contents'] .
 			" ORDER BY cid desc";
 	}
+	elseif($this->self=='emails') {
+		$query = "SELECT e.uid, e.username, e.englishname, e.chinesename,
+		e.address, e.phone, e.email, e.description, e.active, e.createdby, e.created, e.updatedby, e.updated,
+		g.name as fellowship 
+		FROM emails e, groups g WHERE e.fellowship=g.gid and e.active='Y' ORDER BY e.uid DESC";
+	}
 	elseif($this->self=='resources') {
 		$query = "SELECT * FROM resources r WHERE 1=1 ORDER BY rid DESC";
 	}
@@ -293,8 +292,7 @@ class ListBase extends BaseClass
 			else {
 				if(preg_match("/id/i", $k)) $data[$count][$k] = $row[$v];
 				else {
-					if($k=='GWL') $data[$count][$k] = $row[$v];
-					elseif($k=='Weight') $data[$count][$k] = $row[$v];
+					if($k=='Weight') $data[$count][$k] = $row[$v];
 					elseif($k=='Types') $data[$count][$k] = $this->get_ftype($row[$v]); //for $this->self='resources'.
 					else $data[$count][$k] = $row[strtolower($v)]; //htmlentities($row[strtolower($v)]);
 				}
@@ -322,7 +320,7 @@ class ListBase extends BaseClass
 	//if (preg_match("/(\s|,|\t)/", $str)) return 'N/A'; //only include 'space' or ','.
 	if (empty($str) || preg_match("/^\s+$/",$str)) return 'N / A'; //only has 'space'.
   	$s = '';
-	if(preg_match("/^\d+$/", $str) && $flag) { //gwl can't format.
+	if(preg_match("/^\d+$/", $str) && $flag) {
 		$s = number_format($str);
 	}
 	// does str_replace() is quicker than preg_replace() ?
@@ -407,7 +405,7 @@ class ListBase extends BaseClass
 		$this->print_array($res->getMessage().' line: ['.__LINE__.']'.$sql);
 	}
 
-	if($line_flag) echo "\t<option value=''> --- Select --- </option>\n";
+	if($line_flag) echo "\t<option value=''> --- 请选择 --- </option>\n";
 
 	while ($row=$res->fetchRow()) {
 		echo "\t".'<option value="'.$row[0].'" title="'.(isset($row[2])?htmlspecialchars($row[2]):$row[1]).'">'.$this->format_option($row)."</option>\n";
@@ -445,7 +443,7 @@ class ListBase extends BaseClass
   }
   function get_groups_options()
   {
-	$sql = "SELECT group, name, description FROM groups d ORDER BY group";
+	$sql = "SELECT gid, name, description FROM groups";
 	return 	$this->get_select_options($sql);
   }
   function get_levels_options(){
@@ -456,7 +454,7 @@ class ListBase extends BaseClass
   ///////////////////////////////////////////////
   function get_select_array($sql) {
   	if(!isset($sql) || empty($sql)) return;
-	$res = $this->mdb2->queryAll($sql);  //while($row=$res->fetchRow()) $ary[$row[0]]=$row[1];
+	$res = $this->mdb2->queryAll($sql);
 	if (PEAR::isError($res)) die($res->getMessage());
 	return $res;
   }
@@ -465,7 +463,7 @@ class ListBase extends BaseClass
 	return 	$this->get_select_array($sql);
   }
   function get_groups_array() {
-	$sql = "SELECT group, name, description FROM groups  ORDER BY group";
+	$sql = "SELECT gid, name, description FROM groups";
 	return 	$this->get_select_array($sql);
   }
   function get_contents_array() {
@@ -548,7 +546,7 @@ class ListBase extends BaseClass
   function get_level() {
 	$sql = "SELECT level, name FROM levels ORDER BY name";
 	$result = $this->mdb2->query($sql);
-	echo "\t<option value=''> --- Select --- </option>\n";
+	echo "\t<option value=''> --- 请选择 --- </option>\n";
 	while ($row=$result->fetchRow()) {
 		echo "\t<option value=\"" . $row[0] . "\">$row[1]</option>\n";
 	}

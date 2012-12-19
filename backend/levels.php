@@ -30,23 +30,23 @@ class LevelsClass extends ListAdvanced
 		),*/
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Name:',
+		  'display_name' => '名字:',
 		  'id' => 'name_s',
 		  'name' => 'name',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Description:',
+			'display_name' => '描述:',
 			'id' => 'description_s',
 			'name' => 'description',
 		),
 		array(
 			'type' => 'radio',
-			'display_name' => 'Active:',
+			'display_name' => '状态:',
 			'name' => 'active',
 			'lists' => array(
-				'N' => 'No',
-				'Y' => 'Yes',
+				'N' => '禁止',
+				'Y' => '活动',
 				'A' => 'All',
 			),
 			'checked' => 'A',
@@ -54,14 +54,14 @@ class LevelsClass extends ListAdvanced
 		),
 		array(
 			'type' => 'date',
-			'display_name' => 'Created Date:',
+			'display_name' => '创建日期:',
 			'id' => 'created_s',
 			'name' => 'created',
 			'size' => INPUT_SIZE,
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Created By:',
+			'display_name' => '创建者:',
 			'id' => 'createdby_s',
 			'name' => 'createdby',
 		),			
@@ -72,18 +72,18 @@ class LevelsClass extends ListAdvanced
 	return array(
 		array(
 			'type' => 'text',
-			'display_name' => 'Level:',
+			'display_name' => '管理组:',
 			'name' => 'level',
 			'readonly' => 'readonly',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Name:',
+			'display_name' => '名称:',
 			'name' => 'name',
 		),
 		array(
 			'type' => 'textarea',
-			'display_name' => 'description:',
+			'display_name' => '描述:',
 			'name' => 'description',
 		),/*
 		array(
@@ -94,11 +94,11 @@ class LevelsClass extends ListAdvanced
 		), */
 		array(
 			'type' => 'radio',
-			'display_name' => 'Active:',
+			'display_name' => '状态:',
 			'name' => 'active',
 			'lists' => array(
-				'N' => 'No',
-				'Y' => 'Yes',
+				'N' => '禁止',
+				'Y' => '活动',
 			),
 		),
 		array(
@@ -119,19 +119,31 @@ class LevelsClass extends ListAdvanced
 		),*/
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Group Name:',
+		  'display_name' => '管理组:',
 		  'id' => 'level_name',
 		  'name' => 'name',
 		  'size' => INPUT_SIZE+10,
 		),
 		array(
 		  'type' => 'textarea',
-		  'display_name' => 'Description:',
+		  'display_name' => '描述:',
 		  'id' => 'description',
 		  'name' => 'description',
 		  'size' => INPUT_SIZE+10,
 		),
 	  );
+  }
+  
+  function get_header() {
+	return array(
+		'索引' => 'level',
+		'名称' => 'name',
+		'描述' => 'description',
+		'创建者' => 'created',
+		'创建于' => 'createdby',
+		'更新者' => 'updated',
+		'更新于' => 'updatedby',
+	);
   }
 }
 
@@ -198,7 +210,7 @@ else if( isset($_POST['search']) || (isset($_GET['page']) && isset($_GET['sort']
 	$data = $level->list_all();
 	$data['options'] = array(EDIT, DELETE);
 	
-	$header = $level->get_header($level->get_mappings());
+	$header = $level->get_header();
 
 	$pagination = $level->draw( $data['current_page'], $data['total_pages'] );
 	
@@ -221,7 +233,7 @@ else {
 	$data = $level->list_all();
 	$data['options'] = array(EDIT, DELETE);
 	
-	$header = $level->get_header($level->get_mappings());
+	$header = $level->get_header();
 
 	$pagination = $level->draw( $data['current_page'], $data['total_pages'] );
 	

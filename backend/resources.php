@@ -222,7 +222,7 @@ class ResourcesClass extends ListAdvanced
   {
   	$sql = "SELECT DISTINCT type FROM resources";
 	$res = $this->mdb2->query($sql);
-	echo "\t<option value=''> --- Select --- </option>\n";
+	echo "\t<option value=''> --- 请选择 --- </option>\n";
 
 	while ($row=$res->fetchRow()) {
 		echo "\t".'<option value="'.$row[0].'">'.$row[0]."</option>\n";

@@ -16,23 +16,27 @@
     {elseif $item.type=='select'}
       <td><label for="{$item['id']}"> {$item['display_name']} </label></td>
       <td><div class="selectWrapper"><select name="{$item['name']}" id="{$item['id']}">
-      	{if $config.self=='users'}{obj->get_level}{/if}
-      	{if $config.self=='employers'}{obj->get_payment_types_options}{/if}
+      	{if $config.self=='users'}{obj->get_level}
+       	{elseif $config.self=='emails'}{obj->get_groups_options}
+		{elseif $config.self=='common_users'}{obj->get_groups_options}
+		{/if}
         {if $config.self=='modules'}
-		{if $item['name']=='group'} {obj->get_groups_options}
-		{/if}
+		  {if $item['name']=='group'} {obj->get_groups_options} {/if}
         {/if}
+        
         {if $config.self=='contents'}
-		{if $item['name']=='mid'}{obj->get_modules_options}
-		{elseif $item['name']=='group'}{obj->get_groups_options}
-		{/if}
+		  {if $item['name']=='mid'}{obj->get_modules_options}
+		  {elseif $item['name']=='group'}{obj->get_groups_options}
+		  {/if}
         {/if}
+        
         {if $config.self=='resources'}
-			{if $item['name']=='mid'}{obj->get_modules_options}
-			{elseif $item['name']=='type'}{obj->get_types_options}            
-		{/if}
+		  {if $item['name']=='mid'}{obj->get_modules_options}
+		  {elseif $item['name']=='type'}{obj->get_types_options}            
+		  {/if}
         {/if}
-	{if $config.self=='actions'}{obj->get_keyword_selection}{/if}
+		
+        {if $config.self=='actions'}{obj->get_keyword_selection}{/if}
         </select></div></td>
     {elseif $item.type=='date'}
       <td><label for="{$item['id']}"> {$item['display_name']} </label></td>

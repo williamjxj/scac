@@ -20,41 +20,41 @@ class CommonUsersClass extends ListAdvanced
 	return array(
 		array(
 			'type' => 'text',
-			'display_name' => 'User Name:',
+			'display_name' => '用户名:',
 			'id' => 'username_s',
 			'name' => 'username',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Description:',
+			'display_name' => '描述:',
 			'id' => 'description_s',
 			'name' => 'description',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'First Name:',
+			'display_name' => '名字:',
 			'id' => 'firstname_s',
 			'name' => 'firstname',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Last Name:',
+			'display_name' => '姓氏:',
 			'id' => 'lastname_s',
 			'name' => 'lastname',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Email:',
+			'display_name' => '电邮:',
 			'id' => 'email_s',
 			'name' => 'email',
 		),
 		array(
 			'type' => 'radio',
-			'display_name' => 'Active:',
+			'display_name' => '状态:',
 			'name' => 'active',
 			'lists' => array(
-				'N' => 'No',
-				'Y' => 'Yes',
+				'N' => '禁止',
+				'Y' => '活动',
 				'A' => 'All',
 			),
 			'checked' => 'A',
@@ -62,7 +62,7 @@ class CommonUsersClass extends ListAdvanced
 		),
 		array(
 			'type' => 'date',
-			'display_name' => 'Create Date:',
+			'display_name' => '创建日期:',
 			'id' => 'created_s',
 			'name' => 'created',
 			'size' => INPUT_SIZE,
@@ -74,54 +74,54 @@ class CommonUsersClass extends ListAdvanced
 	return array(
 		array(
 			'type' => 'text',
-			'display_name' => 'User ID:',
+			'display_name' => '用户ID:',
 			'name' => 'uid',
 			'readonly' => 'readonly',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'User Name:',
+			'display_name' => '用户名:',
 			'name' => 'username',
 		),
 		array(
 			'type' => 'password',
-			'display_name' => 'Password:',
+			'display_name' => '口令:',
 			'name' => 'password',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'First Name:',
+			'display_name' => '名字:',
 			'name' => 'firstname',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Last Name:',
+			'display_name' => '姓氏:',
 			'name' => 'lastname',
 		),
 		array(
 			'type' => 'date',
-			'display_name' => 'Created:',
+			'display_name' => '创建日期:',
 			'name' => 'created',
 			'size' => INPUT_SIZE,
 			'readonly' => 'readonly',
 		),
 		array(
 			'type' => 'text',
-			'display_name' => 'Email:',
+			'display_name' => '电邮:',
 			'name' => 'email',
 		),
 		array(
 			'type' => 'radio',
-			'display_name' => 'Active:',
+			'display_name' => '状态:',
 			'name' => 'active',
 			'lists' => array(
-				'N' => 'No',
-				'Y' => 'Yes',
+				'N' => '禁止',
+				'Y' => '活动',
 			),
 		),
 		array(
 			'type' => 'textarea',
-			'display_name' => 'description:',
+			'display_name' => '描述:',
 			'name' => 'description',
 		),
 		array(
@@ -136,89 +136,99 @@ class CommonUsersClass extends ListAdvanced
 	return array(
 		array(
 		  'type' => 'text',
-		  'display_name' => 'User Name:',
+		  'display_name' => '用户名:',
 		  'id' => 'username',
 		  'name' => 'username',
 		),
 		array(
-		  'type' => 'text',
-		  'display_name' => 'GWL:',
-		  'id' => 'gwl',
-		  'name' => 'gwl',
-		),
-		array(
 		  'type' => 'password',
-		  'display_name' => 'Password:',
+		  'display_name' => '口令:',
 		  'id' => 'password1',
 		  'name' => 'password',
 		),
 		array(
 		  'type' => 'password',
-		  'display_name' => 'Password Again:',
+		  'display_name' => '重复口令:',
 		  'id' => 'password2',
 		  'name' => 'password',
 		),
 		array(
 		  'type' => 'text',
-		  'display_name' => 'First Name:',
+		  'display_name' => '名字:',
 		  'id' => 'firstname',
 		  'name' => 'firstname',
 		),
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Last Name:',
+		  'display_name' => '姓氏:',
 		  'id' => 'lastname',
 		  'name' => 'lastname',
 		),
 		array(
 			'type' => 'date',
-			'display_name' => 'Birth Date:',
+			'display_name' => '生日:',
 			'id' => 'dob',
 			'name' => 'dob',
 			'size' => INPUT_SIZE,
 		),
 		array(
 			'type' => 'radio',
-			'display_name' => 'Gender:',
+			'display_name' => '性别:',
 			'name' => 'sex',
 			'lists' => array(
-				'M' => 'Male',
-				'F' => 'Female',
+				'M' => '男',
+				'F' => '女',
 			),
 			'checked' => 'M',
 		),
 		array(
 		  'type' => 'select',
-		  'display_name' => 'Group:',
+		  'display_name' => '团契:',
 		  'id' => 'group',
 		  'name' => 'group',
 		),
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Address:',
+		  'display_name' => '地址:',
 		  'id' => 'address1',
 		  'name' => 'address1',
 		),
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Phone:',
+		  'display_name' => '电话:',
 		  'id' => 'phone',
 		  'name' => 'phone',
 		),
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Email:',
+		  'display_name' => '电邮:',
 		  'id' => 'email',
 		  'name' => 'email',
 		),
 		array(
 		  'type' => 'textarea',
-		  'display_name' => 'Description:',
+		  'display_name' => '描述:',
 		  'id' => 'description',
 		  'name' => 'description',
 		  'size' => INPUT_SIZE+10,
 		),
 	 );
+  }
+  
+  function get_header() {
+	return array(
+		'索引' => 'uid',
+		'用户名' => 'username',
+		'口令' => 'password',
+		'名字' => 'firstname',
+		'姓氏' => 'lastname',
+		'电邮' => 'email',
+		'描述' => 'description',
+		'创建者' => 'created',
+		'创建于' => 'createdby',
+		'更新者' => 'updated',
+		'更新于' => 'updatedby',
+	);
   }
 }
 
@@ -291,7 +301,7 @@ else if( isset($_POST['search']) || (isset($_GET['page']) && isset($_GET['sort']
 	$data = $user->list_all();
 	$data['options'] = array(EDIT, DELETE);
 
-	$header = $user->get_header($user->get_mappings());
+	$header = $user->get_header();
 	$pagination = $user->draw( $data['current_page'], $data['total_pages'] );
 	
 	$user->assign('config', $config);
@@ -311,7 +321,7 @@ else {
 	$data = $user->list_all();
 	$data['options'] = array(EDIT, DELETE);
 
-	$header = $user->get_header($user->get_mappings());
+	$header = $user->get_header();
 	$pagination = $user->draw( $data['current_page'], $data['total_pages'] );
 
 	$user->assign('config', $config);

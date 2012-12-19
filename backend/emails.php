@@ -20,13 +20,13 @@ class EmailClass extends ListAdvanced
   return array(
     array(
       'type' => 'text',
-      'display_name' => 'User Name:',
+      'display_name' => '用户名称',
       'id' => 'username_s',
       'name' => 'username',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Description:',
+      'display_name' => '描述:',
       'id' => 'description_s',
       'name' => 'description',
     ),
@@ -38,13 +38,13 @@ class EmailClass extends ListAdvanced
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Last Name:',
+      'display_name' => '中文名字:',
       'id' => 'chinesename_s',
       'name' => 'chinesename',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Email:',
+      'display_name' => '邮件:',
       'id' => 'email_s',
       'name' => 'email',
     ),
@@ -62,18 +62,17 @@ class EmailClass extends ListAdvanced
     ),
     array(
       'type' => 'date',
-      'display_name' => 'Create Date:',
+      'display_name' => '创建日期:',
       'id' => 'created_s',
       'name' => 'created',
       'size' => INPUT_SIZE,
     ),
     array(
       'type' => 'select',
-      'display_name' => 'User Group:',
-      'id' => 'level_s',
-      'name' => 'level',
-      'db_type' => 'int',
-      'call_func' => 'get_level',
+      'display_name' => '所属团契:',
+      'id' => 'fellowship_s',
+      'name' => 'fellowship',
+      'call_func' => 'get_groups_options',
     ),      
   );
   }
@@ -82,39 +81,39 @@ class EmailClass extends ListAdvanced
   return array(
     array(
       'type' => 'text',
-      'display_name' => 'User ID:',
+      'display_name' => '用户ID:',
       'name' => 'uid',
       'readonly' => 'readonly',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'User Name:',
+      'display_name' => '用户名称:',
       'name' => 'username',
     ),
     array(
-      'type' => 'password',
-      'display_name' => 'Password:',
-      'name' => 'password',
-    ),
-    array(
       'type' => 'text',
-      'display_name' => 'First Name:',
-      'name' => 'englishname',
-    ),
-    array(
-      'type' => 'text',
-      'display_name' => 'Last Name:',
+      'display_name' => '中文名字:',
       'name' => 'chinesename',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Email:',
+      'display_name' => 'English Name:',
+      'name' => 'englishname',
+    ),
+    array(
+      'type' => 'text',
+      'display_name' => '电话:',
+      'name' => 'phone',
+    ),
+    array(
+      'type' => 'text',
+      'display_name' => '邮件:',
       'name' => 'email',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'User Group:',
-      'name' => 'level',
+      'display_name' => '所属团契:',
+      'name' => 'fellowship',
     ),
     array(
       'type' => 'radio',
@@ -127,7 +126,7 @@ class EmailClass extends ListAdvanced
     ),
     array(
       'type' => 'textarea',
-      'display_name' => 'description:',
+      'display_name' => '描述:',
       'name' => 'description',
     ),
     array(
@@ -142,74 +141,73 @@ class EmailClass extends ListAdvanced
   return array(
     array(
       'type' => 'text',
-      'display_name' => 'User Name:',
+      'display_name' => '用户名称:',
       'id' => 'username',
       'name' => 'username',
     ),
     array(
-      'type' => 'textarea',
-      'display_name' => 'Description:',
-      'id' => 'description',
-      'name' => 'description',
-      'size' => INPUT_SIZE+10,
-    ),
-    array(
-      'type' => 'password',
-      'display_name' => 'Password:',
-      'id' => 'password1',
-      'name' => 'password',
-    ),
-    array(
-      'type' => 'password',
-      'display_name' => 'Password Again:',
-      'id' => 'password2',
-      'name' => 'password',
+      'type' => 'text',
+      'display_name' => '邮件:',
+      'id' => 'email',
+      'name' => 'email',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'First Name:',
-      'id' => 'englishname',
-      'name' => 'englishname',
+      'display_name' => '电话:',
+      'id' => 'phone',
+      'name' => 'phone',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Last Name:',
+      'display_name' => '地址:',
+      'id' => 'address',
+      'name' => 'address',
+    ),
+    array(
+      'type' => 'text',
+      'display_name' => '中文名字:',
       'id' => 'chinesename',
       'name' => 'chinesename',
     ),
     array(
       'type' => 'text',
-      'display_name' => 'Email:',
-      'id' => 'email',
-      'name' => 'email',
+      'display_name' => 'English Name:',
+      'id' => 'englishname',
+      'name' => 'englishname',
     ),
     array(
       'type' => 'select',
-      'display_name' => 'User Group:',
-      'id' => 'level',
-      'name' => 'level',
-      'call_func' => 'get_level',
+      'display_name' => '团契:',
+      'id' => 'fellowship',
+      'name' => 'fellowship',
+      'call_func' => 'get_groups_options',
     ),      
+    array(
+      'type' => 'textarea',
+      'display_name' => '描述:',
+      'id' => 'description',
+      'name' => 'description',
+      'size' => INPUT_SIZE+10,
+    ),
     );
   }    
 
-  function get_level_by_id($level) {
-    $query = "SELECT level, name FROM levels WHERE level=".$level;
-    $row = $this->mdb2->queryRow($query);
-    echo  "\t<option value=\"" . $row[0] . "\">$row[1]</option>\n";
+  function get_header() {
+	return array(
+		'索引' => 'uid',
+		'用户名称' => 'username',
+		'电邮' => 'email',
+		'电话' => 'phone',
+		'团契' => 'fellowship',
+		'英文名' => 'englishname',
+		'中文名' => 'chinesename',
+		'地址' => 'address',
+		'描述' => 'description',
+		'创建' => 'created,createdby',
+		'更新' => 'updated,updatedby',
+	);
   }
   
-  function get_level_name($query) {
-    if(isset($query) && $query) {
-      $sql = $query;
-      if (preg_match("/,\s*level,/", $sql)) {
-        $sql = $this->replace_str_once_new("level", '(select name from levels where levels.level=emails.level) as level', $sql);
-      }
-      return $sql;
-    }
-    return $query;
-  }
-
   function get_emails_asc()
   {
     $emails = "";
@@ -244,7 +242,7 @@ if(! $email->check_access()) {
   echo "<script>if(window.opener){window.opener.location.href='".LOGIN."';} else{window.parent.location.href='".LOGIN."';}</script>";exit;
 }
 
-$email->set_default_config(array('jvalidate' => true,'tabs' => array('1' => 'List Emails', '2' => 'Add Email', '3' => 'Email Groups')));
+$email->set_default_config(array('jvalidate' => true,'tabs' => array('1' => '邮件列表', '2' => '添加邮件', '3' => '邮件管理')));
 $email->get_table_info();
 
 if(isset($_GET['js_search_form'])) {
@@ -293,12 +291,7 @@ elseif(isset($_REQUEST['action'])) {
       $email->delete($_GET['id']);
       break;
     case 'add':
-      $last_uid = $email->create(array('createdby'=>$email->username, 'updatedby'=>$email->username, 'created'=>'NOW()'));
-      $query = "UPDATE emails AS au, (SELECT name FROM levels WHERE level=".$_POST['level']." ) AS l SET au.lname = l.name WHERE uid=".$last_uid;
-      $affected = $email->mdb2->exec($query);
-      if (PEAR::isError($affected)) {
-        die($affected->getMessage().': ' . $query . ". line: " . __LINE__);
-      }
+      $last_uid = $email->create(array('createdby'=>$email->username, 'updatedby'=>$email->username, 'created'=>'NOW()', 'updated'=>'NOW()'));
       break;    
     default:
       break;
@@ -308,9 +301,9 @@ else if( isset($_POST['search']) || (isset($_GET['page']) && isset($_GET['sort']
   if(isset($_POST['search'])) $email->parse();
 
   $data = $email->list_all();
-  $data['options'] = array(EDIT);
+  $data['options'] = array(EDIT, DELETE);
 
-  $header = $email->get_header($email->get_mappings());
+  $header = $email->get_header();
   $pagination = $email->draw( $data['current_page'], $data['total_pages'] );
   
   $email->assign('config', $config);
@@ -328,9 +321,9 @@ else {
   $_SESSION[$email->self][$email->session['rows']] = $total_rows < 1 ? 1 : $total_rows;
   
   $data = $email->list_all();
-  $data['options'] = array(EDIT);
+  $data['options'] = array(EDIT, DELETE);
 
-  $header = $email->get_header($email->get_mappings());
+  $header = $email->get_header();
   $pagination = $email->draw( $data['current_page'], $data['total_pages'] );
 
   $email->assign('config', $config);
