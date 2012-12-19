@@ -1,0 +1,41 @@
+@charset "utf-8";
+/*
+#userNav {
+	font-size: 13px;
+	color: #686868;
+	margin: 19px 10px 0 0;
+	float: right;
+}
+#userNav a {
+	font-size: 13px;
+	color: #3f87ff;
+	text-decoration:none;
+	font-family: Arial, Helvetica, sans-serif;
+}
+*/
+.dixilogo {
+  background: url(../images/logo.png) no-repeat left top transparent;
+  float: left;
+  height: 81px;
+  width: 300px;
+  margin-top: 10px;
+  margin-left:40px;
+}
+.user-info {
+	padding: 6px;
+	font-size:14px;
+    background-color: #9F10ED;
+    border-bottom: 1px solid #37607D;
+    border-right: 1px solid #37607D;
+    color: #E0EAF1;
+    text-decoration: none;
+    box-shadow: 1px 1px 1px #888888;
+	/*text-shadow: 0 1px 0 #FFFFFF;*/
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.hlist {
+	margin-top:10px;
+	margin-left:40px;
+}
