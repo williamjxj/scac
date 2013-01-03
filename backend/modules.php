@@ -9,9 +9,7 @@ require_once("config.inc.php");
 require_once("ListAdvanced.inc.php");
 global $config;
 
-
 $config['tabs'] = array('1'=>'模块列表', '2'=>'添加模块', '3'=>'网页模块匹配');
-
 
 class ModulesClass extends ListAdvanced
 {
@@ -207,8 +205,8 @@ class ModulesClass extends ListAdvanced
 		'索引' => 'mid',
 		'模块名称' => 'name',
 		'URL' => 'url',
-		'位置' => 'weight',
-		'语言' => 'language',
+		'使用URL' => 'url_flag',
+		'权重' => 'weight',
 		'描述' => 'description',
 		'活动状态' => 'active',
 		'创建' => 'created,createdby',
@@ -329,7 +327,6 @@ elseif(isset($_GET['js_assign_form'])) {
 	$data = array();
 	$data['userid'] = $module->userid;
 	$data['username'] = $module->username;
-	$data['sites'] = $module->get_sites_array();
 
 	$module->assign('config', $config);
 	$module->assign('data', $data);
@@ -357,7 +354,6 @@ elseif(isset($_REQUEST['action'])) {
 			$module->delete($_GET['id']);
 			break;
 		case 'add':
-			// patch: from ListAdvanced.inc.php: line 259.
 			$last_mid = $module->create(array('createdby'=>$module->username,'updatedby'=>$module->username,'created'=>'NOW()'));
 			break;    
 		default:

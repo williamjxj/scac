@@ -92,14 +92,16 @@ function process_form($mdb2, $rdir)
 	$h['uploader'] = isset($_SESSION['admin']['username']) ? $_SESSION['admin']['username'] : 'admin';
 
 	$mid = $_POST['modules'];
-	$group = $_POST['groups'];
+	$gid = $_POST['gid'];
+	$mname = get_mname_from_mid($mid, $mdb2);
+	$gname = get_gname_from_gid($gid, $mdb2);
 	
 	$h['file'] = $_FILES['file']['name'];
 	$h['type'] = $_FILES['file']['type'];
 	$h['size'] = (int)$_FILES['file']['size'];
 
-	$query = "INSERT INTO resources(file,type,size,path,author,notes,createdby, created, updatedby, mid,group,mname) VALUES(
-	  '".$h['file']."', '".$h['type']."', ".$h['size'].", '".$rdir."', '".$h['author']."', '".$h['notes']."', '".$_SESSION['admin']['username']."', NOW(), '".$admin."', ".$mid.", '". $group . "', '".get_mname_from_mid($mid, $mdb2)."')";
+	$query = "INSERT INTO resources(file,type,size,path,author,notes,createdby, created, updatedby, mid,gid,mname,gname) VALUES(
+	  '".$h['file']."', '".$h['type']."', ".$h['size'].", '".$rdir."', '".$h['author']."', '".$h['notes']."', '".$_SESSION['admin']['username']."', NOW(), '".$admin."', ".$mid.", ".$gid.", '". $mname . "', '".$gname."')";
 
 	$affected = $mdb2->exec($query);
 	if (PEAR::isError($affected)) {
@@ -107,23 +109,27 @@ function process_form($mdb2, $rdir)
 	}
 	return true;
 }
-// select one cell
 function get_file($file, $mdb2)
 {
   $mid = $_POST['modules'];
 
   $sql1 = "SELECT count(*) FROM resources WHERE file='".$mdb2->escape($file)."' AND mid=".$mid;
-  echo $sql."<br>\n"; // strange err: missing ) in parenthetical
+  echo $sql."<br>\n";
   $total = $mdb2->queryOne($sql1);
   if($total>0) return true;
   return false;
 }
 
-  function get_mname_from_mid($mid, $mdb2)
-  {
-  	$sql = "SELECT name FROM modules WHERE mid=".$mid;
+function get_mname_from_mid($mid, $mdb2)
+{
+	$sql = "SELECT name FROM modules WHERE mid=".$mid;
 	$mname = $mdb2->queryOne($sql);
 	return $mname;
-  }
-
+}
+function get_gname_from_gid($gid, $mdb2)
+{
+	$sql = "SELECT name FROM groups WHERE gid=".$gid;
+	$gname = $mdb2->queryOne($sql);
+	return $gname;
+}
 ?>

@@ -190,7 +190,7 @@ class ListAdvanced extends ListBase
     $add_ary = $this->get_add_form_settings();
 
 	$array = $this->array_unique_key($_POST);
-	// echo "<pre>"; print_r($array); echo "</pre>";<pre>Array([name] => 挪亚[description] => 挪亚团契[action] => add)
+
     foreach($array as $key=>$value) {
       if ($key=="action" && $value=="add") continue;
       $value = trim($value); //clean.
@@ -242,7 +242,6 @@ class ListAdvanced extends ListBase
     $sql2 = substr($sql2, 0, -1);      
 
     $query = "INSERT INTO ".$this->table_array['table_name']."(".$sql1.") VALUES(".$sql2.");";
-	//echo $query; //INSERT INTO groups(name,description,createdby,updatedby,created) VALUES('挪亚','挪亚团契','demo','demo', NOW());
 
     $affected = $this->mdb2->exec($query);
     if (PEAR::isError($affected)) {

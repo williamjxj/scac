@@ -6,22 +6,7 @@
 {$elm='elm_'+{$cid}}
 <form class="page-form" id="form_{$cid}" name="form_{$cid}" method="POST" action="{$smarty.server.SCRIPT_NAME}" target="iframe_tinymce">
   <div class="content-headline">
-    <div class="headline-options">
-      <label for="contents"> Contents: </label>
-      <div class="selectWrapper">
-        <select id="contents" name="contents" accesskey="L"  style="width:{#select_width#}">
-          <option value="{$cid}"> {$cid} - {$r.title|default:' -- 请选择 -- '} </option>
-          
-	    {foreach $data.contents as $dc}
-        
-          <option value="{$dc[0]}">{$dc[0]} - {$dc[1]}</option>
-          
-      {/foreach}
-      
-        </select>
-      </div>
-    </div>
-    Edit Content {$r.title} </div>
+    编辑 {$r.title} </div>
   <div class="input">
     <label for="modules_{$cid}"> Module: </label>
     <div class="selectWrapper">
@@ -40,19 +25,19 @@
     </div>
   </div>
   <div class="input textfield">
-    <label for="input_title_3"> Link Name: </label>
+    <label for="input_title_3"> 标题: </label>
     <span id="sprytextfield1">
     <input type="text" id="input_title_3" name="input_title_3" size="90"  value="{$r.title}" />
     <span class="textfieldRequiredMsg">A value is required.</span></span> </div>
   <div class="input small-textarea">
-    <label for="input_notes_3"> Notes:</label>
+    <label for="input_notes_3"> 注释: </label>
     <span id="sprytextarea1">
     <textarea class="notes" name="input_notes_3" id="input_notes_3" cols="60">{$r.notes}</textarea>
     <span class="textareaRequiredMsg">A value is required.</span></span> </div>
   <div class="input textfield">
-    <label for="input_title_3"> Author: </label>
+    <label for="input_author_3"> 作者: </label>
     <span id="sprytextfield3">
-    <input type="text" id="input_title_3" name="input_title_3" size="90"  value="{$r.author}" />
+    <input type="text" id="input_author_3" name="input_author_3" size="90"  value="{$r.author}" />
     <span class="textfieldRequiredMsg">A value is required.</span></span> </div>
   <div class="input mce_editor">
     <label for="elm_{$cid}"> HTML:</label>
@@ -81,10 +66,6 @@ $(document).ready(function() {
 
   var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1");
   var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
-  $('#input_title_3').change(function() {
-	var t = $('#input_title_3').val();
-	t = t.replace(/\s+/g, '_').replace(/\'/g,'').replace(/\"/g,'').replace(/,/g,'').replace(/\./g,'') + '.html';
-  });
   
  jQuery.init_tinyMCE = function(WYSIWYG) {
   return tinyMCE.init({
@@ -138,7 +119,7 @@ $(document).ready(function() {
 			$(group + " option[value='"+data.group+"']").attr('selected', 'selected');
 
 			$('#input_title_3').val(data.title);
-			$('#input_title_3').val(data.author).show('fast').attr('readonly',true);
+			$('#input_author_3').val(data.author).show('fast').attr('readonly',true);
 			$('#input_notes_3').val(data.notes);
 			$('#id').val(data.cid);
 		}

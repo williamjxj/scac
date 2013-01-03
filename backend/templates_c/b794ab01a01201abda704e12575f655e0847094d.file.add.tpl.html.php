@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 21:28:13
+<?php /* Smarty version Smarty-3.0.4, created on 2013-01-02 15:13:18
          compiled from ".//templates/add.tpl.html" */ ?>
-<?php /*%%SmartyHeaderCode:203750d1506d047192-20394409%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2406150e4bf0e83ec90-48488498%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'b794ab01a01201abda704e12575f655e0847094d' => 
     array (
       0 => './/templates/add.tpl.html',
-      1 => 1355894886,
+      1 => 1357166593,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '203750d1506d047192-20394409',
+  'nocache_hash' => '2406150e4bf0e83ec90-48488498',
   'function' => 
   array (
   ),
@@ -156,7 +156,6 @@ if ($_smarty_tpl->_count($_from) > 0){
     <input name="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null);?>
 " id="<?php echo (isset($_smarty_tpl->tpl_vars['item']->value['name']) ? $_smarty_tpl->tpl_vars['item']->value['name'] : null);?>
 " type="file" class="validate[required,file]" size="50" />
-    <!--style="width:250px; border:solid 1px !important;" -->
   </div>
 
   <?php }elseif((isset($_smarty_tpl->tpl_vars['item']->value['type']) ? $_smarty_tpl->tpl_vars['item']->value['type'] : null)=='checkbox'){?>
@@ -199,34 +198,12 @@ images/ajax-loader.gif" id="upload_loading" border="0" width="35" height="35" st
  </span> &nbsp; </div>
 </form>
 <script language="javascript" type="text/javascript">
-$(document).ready(function() { 
+$(function() { 
     var this_form = $('#add_form');
 	var url = this_form.attr('action');
 	var this_submit = $('#add_submit');
 	var this_msg = $('#add_msg');
 	
-<?php if ((isset($_smarty_tpl->getVariable('config')->value['self']) ? $_smarty_tpl->getVariable('config')->value['self'] : null)=='themes'){?>
-	var ifr = $('#iframe');
-	var res = '#upload_response';
-	this_form.validationEngine();
-	var options = {
-		target: res,
-		url: url,
-		type: this_form.attr('method'),
-		iframe: true,
-		iframeSrc: 'about:blank',
-		timeout: 120000,
-		beforeSubmit: function() {
-			if ($('#upload_loading').length>0) $('#upload_loading').show();
-			return true;
-		},
-		success: function(data) {
-			if ($('#upload_loading').length>0) $('#upload_loading').hide();
-		}
-	};
-	this_form.ajaxForm(options);
-
-<?php }else{ ?>	
     this_form.bind('submit', function(event) {
         this_form.validationEngine();
         event.preventDefault();
@@ -257,7 +234,6 @@ $(document).ready(function() {
         }
         return false;
     });
-<?php }?>
 
 	$('input:reset', this_form).click( function() {
         this_submit.attr('disabled', false); //removeAttr("disabled");

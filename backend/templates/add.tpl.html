@@ -81,7 +81,6 @@
   <div class="input">
     <label> {$item['display_name']} </label>
     <input name="{$item['name']}" id="{$item['name']}" type="file" class="validate[required,file]" size="50" />
-    <!--style="width:250px; border:solid 1px !important;" -->
   </div>
 
   {elseif $item['type']=='checkbox'}
@@ -106,34 +105,12 @@
     &nbsp; <span id="add_msg" name="msg" style="display: none"> {$config.list.wait1|default:{$smarty.config.wait1}} </span> &nbsp; </div>
 </form>
 <script language="javascript" type="text/javascript">
-$(document).ready(function() { 
+$(function() { 
     var this_form = $('#add_form');
 	var url = this_form.attr('action');
 	var this_submit = $('#add_submit');
 	var this_msg = $('#add_msg');
 	
-{if $config.self=='themes'}
-	var ifr = $('#iframe');
-	var res = '#upload_response';
-	this_form.validationEngine();
-	var options = {
-		target: res,
-		url: url,
-		type: this_form.attr('method'),
-		iframe: true,
-		iframeSrc: 'about:blank',
-		timeout: 120000,
-		beforeSubmit: function() {
-			if ($('#upload_loading').length>0) $('#upload_loading').show();
-			return true;
-		},
-		success: function(data) {
-			if ($('#upload_loading').length>0) $('#upload_loading').hide();
-		}
-	};
-	this_form.ajaxForm(options);
-
-{else}	
     this_form.bind('submit', function(event) {
         this_form.validationEngine();
         event.preventDefault();
@@ -164,7 +141,6 @@ $(document).ready(function() {
         }
         return false;
     });
-{/if}
 
 	$('input:reset', this_form).click( function() {
         this_submit.attr('disabled', false); //removeAttr("disabled");

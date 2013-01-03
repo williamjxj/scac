@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.4, created on 2012-12-18 19:57:45
+<?php /* Smarty version Smarty-3.0.4, created on 2012-12-21 12:05:26
          compiled from ".//templates/list.tpl.html" */ ?>
-<?php /*%%SmartyHeaderCode:2427250d13b391cac70-86303125%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2123050d4c1060d2040-54854593%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '427ea21d909158e8cd9890d9d74b8fa18b830b4e' => 
     array (
       0 => './/templates/list.tpl.html',
-      1 => 1355889458,
+      1 => 1356120321,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2427250d13b391cac70-86303125',
+  'nocache_hash' => '2123050d4c1060d2040-54854593',
   'function' => 
   array (
   ),
@@ -260,22 +260,17 @@ if ($_smarty_tpl->_count($_from) > 0){
 " class="contents" id="contents_<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
 <?php $_tmp24=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp24]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp24] : null);?>
 "></a>&nbsp;
-                <?php }elseif((isset($_smarty_tpl->tpl_vars['o']->value) ? $_smarty_tpl->tpl_vars['o']->value : null)=='pension'){?> <a href="javascript:void(0);" onclick="$(this).editForm('<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
-<?php $_tmp25=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp25]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp25] : null);?>
-', '<?php echo (isset($_smarty_tpl->tpl_vars['m']->value[(isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null)]) ? $_smarty_tpl->tpl_vars['m']->value[(isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null)] : null);?>
-')" title="View Pension <?php echo (isset($_smarty_tpl->tpl_vars['m']->value[(isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null)]) ? $_smarty_tpl->tpl_vars['m']->value[(isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null)] : null);?>
-" class="pension"></a>&nbsp;
                 <?php }elseif((isset($_smarty_tpl->tpl_vars['o']->value) ? $_smarty_tpl->tpl_vars['o']->value : null)=='delete'){?> <a href="<?php echo $_smarty_tpl->getVariable('url')->value;?>
 ?id=<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
+<?php $_tmp25=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp25]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp25] : null);?>
+&name=<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
 <?php $_tmp26=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp26]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp26] : null);?>
-&name=<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
-<?php $_tmp27=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp27]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp27] : null);?>
 &action=delete" class="delete" title="Delete <?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
-<?php $_tmp28=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp28]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp28] : null);?>
+<?php $_tmp27=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp27]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp27] : null);?>
 "></a> <?php }else{ ?> <a href="?id=<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
-<?php $_tmp29=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp29]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp29] : null);?>
+<?php $_tmp28=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp28]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp28] : null);?>
 &name=<?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null);?>
-<?php $_tmp30=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp30]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp30] : null);?>
+<?php $_tmp29=ob_get_clean();?><?php echo (isset($_smarty_tpl->tpl_vars['m']->value[$_tmp29]) ? $_smarty_tpl->tpl_vars['m']->value[$_tmp29] : null);?>
 &action=delete" class="delete" title="Delete <?php echo $_smarty_tpl->getVariable('m'.((isset($_smarty_tpl->getVariable('data')->value['pkey']) ? $_smarty_tpl->getVariable('data')->value['pkey'] : null)))->value;?>
 ">Other</a> <?php }?>
                 <?php }} ?> </div></td>
@@ -292,7 +287,7 @@ if ($_smarty_tpl->_count($_from) > 0){
     </tr>
   </table>
 </div>
-<?php $_tmp31=$_smarty_tpl->getVariable('pagination')->value;?><?php if (!empty($_tmp31)){?>
+<?php $_tmp30=$_smarty_tpl->getVariable('pagination')->value;?><?php if (!empty($_tmp30)){?>
 <div class="pager pager-bottom"> <?php echo $_smarty_tpl->getVariable('pagination')->value;?>
  </div>
 <?php }?>
@@ -367,7 +362,7 @@ $(".pager a").each(function(index) {
   });
 });
 <?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['sort']) ? $_smarty_tpl->getVariable('data')->value['sort'] : null);?>
-<?php $_tmp32=ob_get_clean();?><?php if ($_tmp32){?> 
+<?php $_tmp31=ob_get_clean();?><?php if ($_tmp31){?> 
   var ary = new Array();
   $('#list_thead tr.titleRow th:gt(0)').each(function(index) {
     ary[index] = $('div:gt(0) span', $(this)).text();
@@ -413,7 +408,7 @@ $("table#list_table tr.infoRow td a.edit").click(function(event) {
   return false;
 });
 <?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['self']) ? $_smarty_tpl->getVariable('data')->value['self'] : null)=='contents';?>
-<?php $_tmp33=ob_get_clean();?><?php if ($_tmp33){?>
+<?php $_tmp32=ob_get_clean();?><?php if ($_tmp32){?>
 $('table#list_table tr.infoRow td a.view').bind('click', function(event) {
   event.preventDefault();
   $(event.target).closest('tr').css('background-color','#ffa');
@@ -468,7 +463,7 @@ $('table#list_table tr.infoRow td a.resources').bind('click', function(event) {
 });
 <?php }?>
 <?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('data')->value['self']) ? $_smarty_tpl->getVariable('data')->value['self'] : null)=='resources';?>
-<?php $_tmp34=ob_get_clean();?><?php if ($_tmp34){?>
+<?php $_tmp33=ob_get_clean();?><?php if ($_tmp33){?>
 $('table#list_table tr.infoRow td a.contents').bind('click', function(event) {
   event.preventDefault();
   $(event.target).closest('tr').css('background-color','#ffa');
@@ -500,7 +495,7 @@ jQuery.fn.update_column = function(tid) {
 }
 </script>
 <?php ob_start();?><?php echo (isset($_smarty_tpl->getVariable('config')->value['qtip']) ? $_smarty_tpl->getVariable('config')->value['qtip'] : null);?>
-<?php $_tmp35=ob_get_clean();?><?php if ($_tmp35){?>
+<?php $_tmp34=ob_get_clean();?><?php if ($_tmp34){?>
 <script language="javascript" type="text/javascript">
 $('#list_tbody tr.infoRow input.active,#list_tbody tr.infoRow textarea.active').qtip({
    content: 'Double click to edit',

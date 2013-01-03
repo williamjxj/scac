@@ -108,7 +108,6 @@
                 {elseif $o == 'view'}<a href="{$url}?id={$m[{$data.pkey}]}&js_edit_form_3=1" title="View/Edit {$m[{$data.pkey}]}" class="view" id="view_{$m[{$data.pkey}]}"></a>&nbsp;
                 {elseif $o == 'email'}<a href="{$url}?id={$m[{$data.pkey}]}&js_send_mail=1" title="Send Emails {$m[{$data.pkey}]}" class="email" id="email_{$m[{$data.pkey}]}"></a>&nbsp;
                 {elseif $o == 'contents'}<a href="{$url}?id={$m[{$data.pkey}]}&js_edit_form_3=1" title="Contents {$m[{$data.pkey}]}" class="contents" id="contents_{$m[{$data.pkey}]}"></a>&nbsp;
-                {elseif $o == 'pension'} <a href="javascript:void(0);" onclick="$(this).editForm('{$m[{$data.pkey}]}', '{$m[$data.pkey]}')" title="View Pension {$m[$data.pkey]}" class="pension"></a>&nbsp;
                 {elseif $o == 'delete'} <a href="{$url}?id={$m[{$data.pkey}]}&name={$m[{$data.pkey}]}&action=delete" class="delete" title="Delete {$m[{$data.pkey}]}"></a> {else} <a href="?id={$m[{$data.pkey}]}&name={$m[{$data.pkey}]}&action=delete" class="delete" title="Delete {$m{$data.pkey}}">Other</a> {/if}
                 {/foreach} </div></td>
             {/if} </tr>

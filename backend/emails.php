@@ -291,7 +291,7 @@ elseif(isset($_REQUEST['action'])) {
       $email->delete($_GET['id']);
       break;
     case 'add':
-      $last_uid = $email->create(array('createdby'=>$email->username, 'updatedby'=>$email->username, 'created'=>'NOW()', 'updated'=>'NOW()'));
+      $last_uid = $email->create(array('createdby'=>$email->username, 'updatedby'=>$email->username, 'created'=>'NOW()'));
       break;    
     default:
       break;

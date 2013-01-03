@@ -485,7 +485,7 @@ button#reset {
 }
 #list_tbody form input.active1 {
 	border: 1px solid #d1d1d1;
-	width: 18px;
+	width: 40px;
 }
 #list_tbody form input.active {
 	border: 1px solid #d1d1d1;

@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.4, created on 2012-12-19 04:31:05
+<?php /* Smarty version Smarty-3.0.4, created on 2013-01-03 06:12:44
          compiled from "./templates/header.tpl.html" */ ?>
-<?php /*%%SmartyHeaderCode:281950d134f95afa66-57869021%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:3125450e5134c246865-71351640%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'c25b055e26c56408afae2475e528abc912f7489f' => 
     array (
       0 => './templates/header.tpl.html',
-      1 => 1355870015,
+      1 => 1357166597,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '281950d134f95afa66-57869021',
+  'nocache_hash' => '3125450e5134c246865-71351640',
   'function' => 
   array (
   ),
@@ -25,7 +25,7 @@ $_smarty_tpl->decodeProperties(array (
 <link rel="stylesheet" type="text/css" href="<?php echo (isset($_smarty_tpl->getVariable('config')->value['path']) ? $_smarty_tpl->getVariable('config')->value['path'] : null);?>
 css/header.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo (isset($_smarty_tpl->getVariable('config')->value['ipath']) ? $_smarty_tpl->getVariable('config')->value['ipath'] : null);?>
-bootstrap/css/bootstrap.min.css" />
+bootstrap/css/bootstrap.css" />
 <link rel="shortcut icon" href="favicon.ico">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="<?php echo (isset($_smarty_tpl->getVariable('config')->value['ipath']) ? $_smarty_tpl->getVariable('config')->value['ipath'] : null);?>

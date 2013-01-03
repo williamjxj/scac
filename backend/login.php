@@ -123,7 +123,6 @@ $(function() {
 				$('button:submit', form).attr('disabled', true).next('img').fadeIn();
 			},
 			success: function(succ) {
-			alert(succ);
 				if(succ == 'Y')
 					document.location.href='/scac2/';
 				else {

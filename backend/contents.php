@@ -9,7 +9,7 @@ require_once("config.inc.php");
 require_once("ListAdvanced.inc.php");
 global $config;
 
-$config['tabs'] = array('1'=>'列表', '2'=>'添加', '3'=> '更新', '4'=>'模块正文匹配');
+$config['tabs'] = array('1'=>'列表', '2'=>'添加', '3'=> '更新');
 $config['WYSIWYG'] = true;
 
 class ContentsClass extends ListAdvanced
@@ -41,11 +41,11 @@ class ContentsClass extends ListAdvanced
 			'type' => 'radio',
 			'display_name' => 'Active:',
 			'id' => 'active_s',
-			'name' => 'active',
+			'name' => '活动状态',
 			'lists' => array(
-				'N' => 'No',
-				'Y' => 'Yes',
-				'A' => 'All',
+				'N' => '禁止',
+				'Y' => '正常',
+				'A' => '所有',
 			),
 			'checked' => 'A',
 			'ignore' => 'A',
@@ -89,20 +89,20 @@ class ContentsClass extends ListAdvanced
 	return array(
 		array(
 		  'type' => 'text',
-		  'display_name' => 'Module:',
+		  'display_name' => '模块:',
 		  'name_value' => 'mid',
 		  'name' => 'mname',
 		),
 		array(
 		  'type' => 'select',
-		  'display_name' => 'Division:',
-          'name_value' => 'group',
-		  'name' => 'group',
+		  'display_name' => '团契:',
+          'name_value' => 'gid',
+		  'name' => 'gname',
 		  'call_func' => 'get_groups_options',
 		),
 		array(
 			'type' => 'radio',
-			'display_name' => 'Active:',
+			'display_name' => '活动状态:',
 			'name' => 'active',
 			'lists' => array(
 				'N' => 'No',
@@ -145,28 +145,24 @@ class ContentsClass extends ListAdvanced
 	return array(
 		'索引' => 'cid',
 		'标题' => 'title',
-		'模块名称' => 'pubdate',
-		'作者/出处' => 'author',
-		'作者/出处' => 'source',
-		'注释' => 'clicks',
-		'位置' => 'category',
-		'位置' => 'item',
-		'语言' => 'likes',
-		'语言' => 'fandui',
-		'语言' => 'pinglun',
-		'语言' => 'tags',
+		'模块名称' => 'notes',
+		'模块' => 'mid',
+		'模块' => 'mname',
+		'团契' => 'gid',
+		'团契' => 'gname',
+		'注释' => 'tags',
 		'语言' => 'guanzhu',
 		'创建' => 'created,createdby',
-		'更新' => 'updated'
+		'更新' => 'updated,updatedby'
 	);
   }
   function get_contents_options_by_mid($module_id){
-	$sql = "SELECT cid, title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, group FROM contents c WHERE mid=" . $module_id . " ORDER BY title";
+	$sql = "SELECT cid, title, author, mname, gname, gid, mid FROM contents c WHERE mid=" . $module_id . " ORDER BY title";
 	return 	$this->get_select_options($sql);
   }  
   function get_contents_options_by_group($module_id, $group){
   	if($group) {
-		$sql = "SELECT cid, concat(title,'[',mid,']','[',group,']') as title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, group FROM contents c WHERE mid=" . $module_id . " AND group='".$group."' ORDER BY title";
+		$sql = "SELECT cid, concat(title,'[',mid,']','[',gname,']') as title, author, mname, gname FROM contents c WHERE mid=" . $module_id . " AND gname='".$group."' ORDER BY title";
 		return 	$this->get_select_options($sql);
 	}
 	else
@@ -185,9 +181,9 @@ class ContentsClass extends ListAdvanced
 	}
 	foreach($cids as $cid) {
 		$sql = "INSERT INTO contents(
-			title,author,notes,content,mid,group,weight,active,createdby,created) 		
+			title,author,notes,content,mid,gname,weight,active,createdby,created) 		
 		SELECT
-			title,author,notes,content,".$mid.",group,weight,'Y','".$this->username."',NOW()
+			title,author,notes,content,".$mid.",gname,weight,'Y','".$this->username."',NOW()
 		FROM contents
 		WHERE cid = ".$cid;
 		echo $sql."\n";
@@ -222,7 +218,7 @@ class ContentsClass extends ListAdvanced
 
  function edit($username)
   {
-	$group = isset($_POST['group'])?$_POST['group']:'';
+	$gid = isset($_POST['gid'])?$_POST['gid']:'';
 	$cid = $_POST['cid'];
 	$active = $_POST['active'];
 
@@ -241,7 +237,7 @@ class ContentsClass extends ListAdvanced
 		 "author    = '" . $author ."', " .
 		 "notes    = '" . $notes . "', " .
 		 "active = '" . $active . "', " .
-		 "group = '" . $group . "', updatedby='".$username."' WHERE cid =  " . $cid; 
+		 "gid = '" . $gid . "', updatedby='".$username."' WHERE cid =  " . $cid; 
 
 	$affected = $this->mdb2->exec($query);
 	if (PEAR::isError($affected)) {
@@ -256,7 +252,7 @@ class ContentsClass extends ListAdvanced
 	$ary['title'] = $row['title'];
 	$ary['author'] = $row['author'];
 	$ary['notes'] = $row['notes'];
-	$ary['group'] = $row['group'];
+	$ary['gid'] = $row['gid'];
 	$ary['content'] = $row['content'];
 	$encodedArray = array_map("utf8_encode", $ary);
 	return $encodedArray;
@@ -266,33 +262,34 @@ class ContentsClass extends ListAdvanced
   function add()
   {
 	$mid = $_POST['modules'];
-	$group = isset($_POST['groups'])?$_POST['groups']:'';
+	$mid2 = $_POST['modules2'];
+	$gid = isset($_POST['groups'])?$_POST['groups']:'';
 	if(isset($_POST['content'])) $content = $_POST['content'];
 	elseif(isset($_POST['elm3'])) $content = $_POST['elm3'];
 
 	if (get_magic_quotes_gpc()) {
 		$title = trim($_POST['input_title_3']);
-		$author = trim($_POST['input_title_3']);
+		$author = trim($_POST['input_author_3']);
 		$notes = trim($_POST['input_notes_3']);
 	}
 	else {
 		$title = $this->mdb2->escape(trim($_POST['input_title_3']));
-		$author = $this->mdb2->escape(trim($_POST['input_title_3']));
+		$author = $this->mdb2->escape(trim($_POST['input_author_3']));
 		$notes = $this->mdb2->escape(trim($_POST['input_notes_3']));
 		$content = $this->mdb2->escape($content);
 	}
-	//http://www.tinymce.com/wiki.php/How-to_implement_TinyMCE_in_PHP: $content = nl2br(htmlentities(stripslashes(trim($_POST['content']))));
-	// <cufon...>not work.
+
 	$content = strip_tags($content,$this->allowedTags);
 
-	$query = "INSERT INTO contents (title, author, notes, content, createdby, created, updatedby,mid,group,mname)
+	$query = "INSERT INTO contents (title, author, notes, content, createdby, created, updatedby,mid,gid,mname,gname)
 		VALUES('".$title."', '".$author."', '".$notes."', '" . $content . "', '" . $this->username . "', NOW(), '".$this->username."', ".
-		$mid . ", '" . $group . "', '".$this->get_mname_from_mid($mid)."')";
+		$mid . ", " . $gid . ", '".$this->get_mname_from_mid($mid)."', '" . $this->get_gname_from_gid($gid) . "')";
 
 	$affected = $this->mdb2->exec($query);
 	if (PEAR::isError($affected)) {
 		die($affected->getMessage().' line: ' . __LINE__.$query);
 	}
+	
 	$id = $this->mdb2->lastInsertID();
 	$query = "SELECT * FROM contents WHERE cid=" . $id;
 	$row = $this->mdb2->queryRow($query, '', MDB2_FETCHMODE_ASSOC);
@@ -304,7 +301,9 @@ class ContentsClass extends ListAdvanced
 	$ary['notes'] = $row['notes'];
 	$ary['content'] = $row['content'];
 	$ary['mid'] = $row['mid'];
-	$ary['group'] = $row['group'];
+	$ary['gid'] = $row['gid'];
+	$ary['mname'] = $row['mname'];
+	$ary['gname'] = $row['gname'];
 	$encodedArray = array_map("utf8_encode", $ary);
 	return $encodedArray;
   }
@@ -312,7 +311,7 @@ class ContentsClass extends ListAdvanced
   function edit_wysiwyg_table()
   {
 	$mid = $_POST['modules'];
-	$group = $_POST['groups'];
+	$gid = $_POST['gid'];
 	$cid = $_POST['id'];
 	if(isset($_POST['content'])) $content = $_POST['content'];
 	else foreach($_POST as $k=>$v) if(preg_match("/^elm_/", $k)) $content = $_POST[$k];
@@ -327,18 +326,16 @@ class ContentsClass extends ListAdvanced
 		$author = $this->mdb2->escape(trim($_POST['input_title_3']));
 		$notes = $this->mdb2->escape(trim($_POST['input_notes_3']));
 		$content = addslashes($content);
-		//$content = $this->mdb2->escape(trim($_POST['content'])); if using escape, <> becomes &lt;&gt; not correct.
 	}
 
-	//$content = $this->mdb2->escape(strip_tags(stripslashes($content),$this->allowedTags));
 	$content = strip_tags($content, $this->allowedTags);
 
-	$query = "UPDATE contents set title = '" . $title . "', " .
+	$query = "UPDATE contents SET title = '" . $title . "', " .
 		 "author    = '" . $author ."', " .
 		 "notes    = '" . $notes . "', " .
 		 "content  = '" . $content . "', " .
 		 "mid      = " . $mid . ", " .
-		 "group = '" . $group . "', updatedby = '".$this->username."' WHERE cid =  " . $cid; 
+		 "gid = '" . $group . "', updatedby = '".$this->username."' WHERE cid =  " . $cid; 
 
 	$affected = $this->mdb2->exec($query);
 	if (PEAR::isError($affected)) {
@@ -379,7 +376,6 @@ class ContentsClass extends ListAdvanced
     
   function get_content_record($cid) {
   	$ary = array();	
-  	// $query = "SELECT * FROM vw_contents WHERE cid=".$cid;
   	$query = "SELECT * FROM contents WHERE cid=".$cid;
 
 	$result = $this->mdb2->query($query);
@@ -392,19 +388,19 @@ class ContentsClass extends ListAdvanced
 	$ary['content'] = $row['content'];
 	$ary['mid'] = $row['mid'];
 	$ary['mname'] = $row['mname'];
-	$ary['group'] = $row['group'];
+	$ary['gid'] = $row['gid'];
 	$encodedArray = array_map("utf8_encode", $ary);
 	return $encodedArray;
   }
   // different with resources.php.
   function select_assigned_contents($mid)
   {
-	$sqlc = "SELECT cid, title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, group  FROM contents c WHERE active='Y' AND mid=".$mid." ORDER BY title";
+	$sqlc = "SELECT cid, title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, gid  FROM contents c WHERE active='Y' AND mid=".$mid." ORDER BY title";
 	return 	$this->get_select_options($sqlc, false);
   }  
   function select_available_contents($mid)
   {
-	$sqlc = "SELECT cid, title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, group FROM contents c WHERE active='Y' AND mid!=".$mid."  ORDER BY title";
+	$sqlc = "SELECT cid, title, author, (SELECT name FROM modules m WHERE m.mid=c.mid) AS mname, gid FROM contents c WHERE active='Y' AND mid!=".$mid."  ORDER BY title";
 	return 	$this->get_select_options($sqlc, false);
   }
 
@@ -437,24 +433,17 @@ class ContentsClass extends ListAdvanced
 	  return false;
 	}
 
-    /*
-	   $message = "\n\nBrowser Info: " . $_SERVER["HTTP_USER_AGENT"] .
-                "\nIP: " . $_SERVER["REMOTE_ADDR"] .
-                "\n\nDate: " . date("Y-m-d h:i:s");
-	 */
 	$message = "邮件来自 http://www.scac-church.org/ ";
 	$message .= "\n日期: " . date("Y-m-d h:i:s");
     $message .= $row['content'];
 
     $siteEmails = $this->get_emails($cid);
-    // echo "<pre>";print_r($siteEmails); echo "</pre>";
-	// $siteEmails = "williamjxj@hotmail.com,jxjwilliam@gmail.com";
+
     $emailTitle = '素里华人宣道会一家团契';
 
     if(! mail($siteEmails, $emailTitle, $message, 'admin@surreyonefamil.ca'))
       echo '邮件没有成功发送.';
 	  
-	// After sent, set flag='Y' means no re-send.
 	$query = "UPDATE contents SET send_email_flag = 'Y' WHERE cid = " . $cid;
 	$affected = $this->mdb2->exec($query);
     if (PEAR::isError($affected)) {
@@ -494,10 +483,8 @@ elseif(isset($_GET['js_edit_form_3'])) {
   else
   	$record = array();
 
-  $data['contents'] = $cont->get_contents_array();
-  $data['sites'] = $cont->get_sites_array();
   $data['modules'] = $cont->get_modules_array();
-  $data['groups'] = $cont->get_groups_array();
+  $data['gid'] = $cont->get_groups_array();
   $data['record'] = $record;
   
   $cont->assign('config', $config);
@@ -518,7 +505,6 @@ elseif(isset($_GET['js_edit_form_4'])) {
 	  $data['resources1'] = $cont->get_available_resources($_GET['id']);
 	  $data['resources2'] = $cont->get_assigned_resources($_GET['id']);
   }
-  $data['sites'] = $cont->get_sites_array();
   $data['modules'] = $cont->get_modules_array();
   $data['groups'] = $cont->get_groups_array();  
   $cont->assign('config', $config);
@@ -539,7 +525,6 @@ elseif(isset($_GET['js_edit_form_5'])) {
 	  $data['resources1'] = $cont->get_available_resources($_GET['id']);
 	  $data['resources2'] = $cont->get_assigned_resources($_GET['id']);
   }
-  $data['sites'] = $cont->get_sites_array();
   $data['modules'] = $cont->get_modules_array();
   $data['groups'] = $cont->get_groups_array();  
   $cont->assign('config', $config);
@@ -548,22 +533,18 @@ elseif(isset($_GET['js_edit_form_5'])) {
 }
 elseif(isset($_GET['js_edit_form'])) {
 	$ary = $cont->get_edit_form_settings();
-	// $cont->get_edit_form($_GET['id'], $ary);
+
 	$record = $cont->get_record($_GET['id']);
 	$cont->assign('record', $record);	
 
-        if(isset($_GET['tr'])) $cont->assign('form_id', 'ef_'.$_GET['id'].'-'.$_GET['tr']);
-        else $cont->assign('form_id', 'ef_'.$_GET['id']);
- 
+	if(isset($_GET['tr'])) $cont->assign('form_id', 'ef_'.$_GET['id'].'-'.$_GET['tr']);
+	else $cont->assign('form_id', 'ef_'.$_GET['id']);
+
 	$cont->assign('edit_form', $ary);	
 	$cont->assign('config', $config);
 	$cont->display($config['templs']['edit']);
 }
 elseif(isset($_GET['js_add_form'])) {
-	//$ary = $cont->get_add_form_settings();
-	//$cont->get_add_form($ary);
-  $data['sites'] = $cont->get_sites_array();
-  //$data['modules'] = $cont->get_modules_array();
   $data['groups'] = $cont->get_groups_array();
   
   $cont->assign('config', $config);
@@ -576,9 +557,11 @@ elseif(isset($_REQUEST['js_get_pages'])) {
 elseif(isset($_REQUEST['js_get_modules'])) {
 	$cont->get_modules_options();
 }
-
+elseif(isset($_REQUEST['js_get_submenu'])) {
+	$cont->js_get_submenu();
+}
 elseif(isset($_REQUEST['js_get_groups'])) {
-	$cont->get_groups_options($sid);
+	$cont->get_groups_options();
 }
 elseif(isset($_REQUEST['js_get_contents_by_mid'])) {
 	$cont->get_contents_options_by_mid($_REQUEST['mid']);
@@ -588,7 +571,6 @@ elseif(isset($_REQUEST['js_get_contents_by_group'])) {
 }
 elseif(isset($_GET['js_assign_form'])) {
 	$data = array();
-	$data['sites'] = $cont->get_sites_array();
 	$cont->assign('config', $config);
 	$cont->assign('data', $data);
 	$cont->display($config['templs']['assign_rc']); //'assign_resources-contents.tpl.html'
@@ -622,7 +604,6 @@ elseif(isset($_POST['add_submit'])) {
 	$ret = $cont->add();
 	echo json_encode($ret);
 }
-// use pure form submit.
 elseif(isset($_POST['edit_submit'])) {
 	$ret = $cont->edit_wysiwyg_table();
 	echo json_encode($ret);
@@ -631,7 +612,6 @@ else if( isset($_POST['search']) || (isset($_GET['page']) && isset($_GET['sort']
 	if(isset($_POST['search'])) $cont->parse();
 
 	$data = $cont->list_all();
-	// $data['options'] = array(VIEW, EDIT, RESOURCE, DELETE);
 	$data['options'] = array(VIEW, EDIT, EMAIL, DELETE);
 	
 	$header = $cont->get_header($cont->get_mappings());

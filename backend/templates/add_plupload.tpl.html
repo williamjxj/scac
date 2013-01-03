@@ -8,27 +8,32 @@
     <div class="selectWrapper">
     <select id="modules" name="modules" accesskey="M" style="width:{#select_width#}">
       <option value=""> -- 请选择 -- </option>
+      
+  {foreach $data.modules as $dd}  
+      <option value="{$dd[0]}">{$dd[1]}</option>
+  {/foreach}
+  
     </select>
     </div>
   </div>
   <div class="input">
-    <label for="groups"> 团契: </label>
+    <label for="gid"> 团契: </label>
     <div class="selectWrapper">
-    <select id="groups" name="groups" accesskey="D" style="width:{#select_width#}">
+    <select id="gid" name="gid" accesskey="D" style="width:{#select_width#}">
       <option value=""> -- 选择 -- </option>
       
-  {foreach $data.groups as $dd}  
-      <option value="{$dd[0]}">{$dd[1]}</option>      
-  {/foreach}  
+  {foreach $data.groups as $dd}
+      <option value="{$dd[0]}">{$dd[1]}</option>
+  {/foreach}
     </select>
     </div>
   </div>
   <div class="input">  
-    <label for="author">Auther:</label>
-    <input type="text" id="author" name="author" size="100"  />
+    <label for="author">作者:</label>
+    <input type="text" id="author" name="author" size="100"  value="{$smarty.session.scac.username}" />
   </div>
   <div class="input small-textarea">
-    <label for="notes">Notes:</label>  
+    <label for="notes">注释:</label>  
     <textarea name="notes" id="notes" class="textPlupload note1" rows="4" cols="80"></textarea>
   </div>
   <div id="uploader" class="uploaderStyle">
@@ -49,7 +54,7 @@ $(function() {
 		max_file_size : '10mb',
 		chunk_size : '1mb',
 		unique_names : true,
-		multipart_params: { 'author':'','notes':'','modules':'','groups':'' },
+		multipart_params: { 'author':'','notes':'','modules':'','gid':'' },
 		filters : [
 			{ title : "Image files", extensions : "jpg,gif,png" },
 			{ title : "PDF files", extensions : "pdf" },
@@ -72,7 +77,7 @@ $(function() {
 			up.settings.multipart_params.author = $("#author").val();
 			up.settings.multipart_params.notes = $("#notes").val();
 			up.settings.multipart_params.modules = $("#modules").val();
-			up.settings.multipart_params.groups = $("#groups").val();
+			up.settings.multipart_params.gid = $("#gid").val();
 		  },
 		  FileUploaded : function(up, files, info) {
 			var obj = eval('(' + info.response + ')');

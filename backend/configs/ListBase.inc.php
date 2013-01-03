@@ -179,33 +179,13 @@ class ListBase extends BaseClass
 			$acy['module'] .
 			" ORDER BY mid DESC";
 	}
-	elseif($this->self=='contents') {
-		$query = "SELECT ct.cid, ct.weight, 
-			cp.name AS page,
-			(select name from modules where modules.mid=ct.mid) as mid,
-			ct.title, ct.author,ct.notes,ct.content, ct.group,ct.createdby, ct.created, ct.updatedby, ct.updated
-			FROM contents AS ct
-			INNER JOIN pages AS cp
-			INNER JOIN pages_modules AS pm
-			ON cp.pid = pm.pid
-			AND ct.mid = pm.mid ".
-			$acy['contents'].
-			" UNION
-			SELECT ct.cid, ct.weight,
-			 '' AS page,
-			(SELECT name FROM modules WHERE modules.mid=ct.mid) as mid,
-			ct.title, ct.author,ct.notes,ct.content, ct.group,ct.createdby, ct.created, ct.updatedby, ct.updated
-			FROM contents AS ct
-			WHERE ct.mid NOT IN (SELECT mid from pages_modules) ".
-			$acy['contents'] .
-			" ORDER BY cid desc";
-	}
-	elseif($this->self=='emails') {
+/*	elseif($this->self=='emails') {
 		$query = "SELECT e.uid, e.username, e.englishname, e.chinesename,
 		e.address, e.phone, e.email, e.description, e.active, e.createdby, e.created, e.updatedby, e.updated,
 		g.name as fellowship 
 		FROM emails e, groups g WHERE e.fellowship=g.gid and e.active='Y' ORDER BY e.uid DESC";
 	}
+*/
 	elseif($this->self=='resources') {
 		$query = "SELECT * FROM resources r WHERE 1=1 ORDER BY rid DESC";
 	}
@@ -226,106 +206,104 @@ class ListBase extends BaseClass
 
   function list_all()
   {
-  if (isset($_SESSION[$this->self][$this->session['sql']]) && !empty($_SESSION[$this->self][$this->session['sql']])) {
-	$query = $_SESSION[$this->self][$this->session['sql']];
-	$ary = $this->get_magic_sql_1($this->get_mappings());
-  }
-  else {
-    $section_info = $this->get_mappings();
-    list($query, $ary) = $this->get_config($section_info);
-  }
-
-  $page = isset($_GET['page']) ? $_GET['page'] : 1;
-  $total_pages = ceil($_SESSION[$this->self][$this->session['rows']]/ROWS_PER_PAGE);
-  if ( $page > $total_pages ) $page = $total_pages;
-  $row_no = ((int)$page-1)*ROWS_PER_PAGE;
-
-  if (preg_match("/limit /i", $query)) {
-    $query = preg_replace("/limit.*$/i", '', $query);
-  }
-
-  if (! preg_match("/order by/i", $query)) {
-	if(isset( $this->table_array['primary_key'])) {
-		$primary_key = $this->table_array['primary_key'];
-		$query .= " order by " . $primary_key . " desc "; // default is primary_key.
-	}
-  }
-
-	if (isset($_GET['sort'])) {
-		$new_order = $_GET['sort'];
-		if (preg_match("/order by/i", $query)) {
-			$query = preg_replace("/order by.*$/i", " order by " . $new_order, $query);
-		}
-		else {
-			$query .= " order by " . $new_order;
-		}
-	}
-	// 5. generate new $query, assign it to SESSION.
-	$query .= " limit  " . $row_no . "," . ROWS_PER_PAGE;
- //echo $query . "<br>\n"; 
-	$_SESSION[$this->self][$this->session['sql']] = $query;
+	  if (isset($_SESSION[$this->self][$this->session['sql']]) && !empty($_SESSION[$this->self][$this->session['sql']])) {
+		$query = $_SESSION[$this->self][$this->session['sql']];
+		$ary = $this->get_magic_sql_1($this->get_mappings());
+	  }
+	  else {
+		$section_info = $this->get_mappings();
+		list($query, $ary) = $this->get_config($section_info);
+	  }
 	
-	$res = $this->mdb2->query($query);
-	if (PEAR::isError($this->mdb2)) die($this->mdb2->getMessage().' [line '.__LINE__.']: '. $query);     
-
-	$h = $res->getColumnNames();
-	if (PEAR::isError($h)) {
-		die($h->getMessage().' [line '.__LINE__.']: '. $query);
-	}
+	  $page = isset($_GET['page']) ? $_GET['page'] : 1;
+	  $total_pages = ceil($_SESSION[$this->self][$this->session['rows']]/ROWS_PER_PAGE);
+	  if ( $page > $total_pages ) $page = $total_pages;
+	  $row_no = ((int)$page-1)*ROWS_PER_PAGE;
 	
-	$data = array();
-	$count = 0;
+	  if (preg_match("/limit /i", $query)) {
+		$query = preg_replace("/limit.*$/i", '', $query);
+	  }
+	
+	  if (! preg_match("/order by/i", $query)) {
+		if(isset( $this->table_array['primary_key'])) {
+			$primary_key = $this->table_array['primary_key'];
+			$query .= " order by " . $primary_key . " desc "; // default is primary_key.
+		}
+	  }
 
-	while ($row=$res->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-		$data[$count]['no'] = ++ $row_no;
-		foreach($ary as $k=>$v) {
-			if(is_array($v)) {
-				$tt='';
-				foreach($v as $t) {
-					$t = trim($t); 
-					if(array_key_exists($t, $h)) {
-						$tt .= $row["$t"] . ', ';
-					}
-				}
-				$data[$count][$k] = $this->format($tt);
+		if (isset($_GET['sort'])) {
+			$new_order = $_GET['sort'];
+			if (preg_match("/order by/i", $query)) {
+				$query = preg_replace("/order by.*$/i", " order by " . $new_order, $query);
 			}
 			else {
-				if(preg_match("/id/i", $k)) $data[$count][$k] = $row[$v];
-				else {
-					if($k=='Weight') $data[$count][$k] = $row[$v];
-					elseif($k=='Types') $data[$count][$k] = $this->get_ftype($row[$v]); //for $this->self='resources'.
-					else $data[$count][$k] = $row[strtolower($v)]; //htmlentities($row[strtolower($v)]);
-				}
+				$query .= " order by " . $new_order;
 			}
 		}
-		$count ++;
-	}
-	$output = array();
+		// 5. generate new $query, assign it to SESSION.
+		$query .= " limit  " . $row_no . "," . ROWS_PER_PAGE;
 
-	$output['self'] = $this->self;
-	$output['col_types'] = $this->get_coltypes_info();
-	if(isset($this->table_array['pkey'])) $output['pkey'] = $this->table_array['pkey'];
-	$output['current_page'] = $page;
-	$output['total_pages'] = $total_pages;
-	$output['total_rows'] = $_SESSION[$this->self][$this->session['rows']];
-	$output['list'] = $data;
-	if(isset($_GET['sort'])) $output['sort'] =  $_GET['sort'];
-
-	return $output;
+		// echo $query;
+		
+		$_SESSION[$this->self][$this->session['sql']] = $query;
+		
+		$res = $this->mdb2->query($query);
+		if (PEAR::isError($this->mdb2)) die($this->mdb2->getMessage().' [line '.__LINE__.']: '. $query);     
+	
+		$h = $res->getColumnNames();
+		if (PEAR::isError($h)) {
+			die($h->getMessage().' [line '.__LINE__.']: '. $query);
+		}
+		
+		$data = array();
+		$count = 0;
+	
+		while ($row=$res->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+			$data[$count]['no'] = ++ $row_no;
+			foreach($ary as $k=>$v) {
+				if(is_array($v)) {
+					$tt='';
+					foreach($v as $t) {
+						$t = trim($t); 
+						if(array_key_exists($t, $h)) {
+							$tt .= $row["$t"] . ', ';
+						}
+					}
+					$data[$count][$k] = $this->format($tt);
+				}
+				else {
+					if(preg_match("/id/i", $k)) $data[$count][$k] = $row[$v];
+					else {
+						if($k=='Weight') $data[$count][$k] = $row[$v];
+						elseif($k=='Types') $data[$count][$k] = $this->get_ftype($row[$v]); //for $this->self='resources'.
+						else $data[$count][$k] = $row[strtolower($v)]; //htmlentities($row[strtolower($v)]);
+					}
+				}
+			}
+			$count ++;
+		}
+		$output = array();
+	
+		$output['self'] = $this->self;
+		$output['col_types'] = $this->get_coltypes_info();
+		if(isset($this->table_array['pkey'])) $output['pkey'] = $this->table_array['pkey'];
+		$output['current_page'] = $page;
+		$output['total_pages'] = $total_pages;
+		$output['total_rows'] = $_SESSION[$this->self][$this->session['rows']];
+		$output['list'] = $data;
+		if(isset($_GET['sort'])) $output['sort'] =  $_GET['sort'];
+	
+		return $output;
   }
 
-  // setlocale(LC_MONETARY, 'en_US'); echo money_format('%i', $number) . "\n";
   function format($str, $flag=true)
   {
-	//if (preg_match("/(\s|,|\t)/", $str)) return 'N/A'; //only include 'space' or ','.
 	if (empty($str) || preg_match("/^\s+$/",$str)) return 'N / A'; //only has 'space'.
   	$s = '';
 	if(preg_match("/^\d+$/", $str) && $flag) {
 		$s = number_format($str);
 	}
-	// does str_replace() is quicker than preg_replace() ?
 	else if(preg_match("/\s+00:00:00/", $str)) {
-		// $s = preg_replace("/\s+00:00:00/", '', $str);
 		$s = trim(str_replace("00:00:00", '', $str));
 	}
   	else if (preg_match("/\w/", $str)) {
@@ -435,15 +413,18 @@ class ListBase extends BaseClass
   }
   function get_modules_options()
   {
-	$sql = "SELECT m.mid, m.name, m.description, p.name FROM modules m 
-		LEFT JOIN pages_modules pm ON (pm.mid = m.mid)
-		LEFT JOIN pages p ON (p.pid = pm.pid) 
+	$sql = "SELECT m.mid, m.name, m.description FROM modules m 
 		WHERE m.active='Y' ORDER BY m.name";
 	return 	$this->get_select_options($sql);
   }
   function get_groups_options()
   {
-	$sql = "SELECT gid, name, description FROM groups";
+	$sql = "SELECT gid, name, description FROM groups where active='Y'";
+	return 	$this->get_select_options($sql);
+  }
+  function js_get_submenu()
+  {
+	$sql = "SELECT gid, name, description FROM groups where active='Y'";
 	return 	$this->get_select_options($sql);
   }
   function get_levels_options(){
@@ -458,16 +439,16 @@ class ListBase extends BaseClass
 	if (PEAR::isError($res)) die($res->getMessage());
 	return $res;
   }
-  function get_modules_sites_array() {
-	$sql = "SELECT mid, concat(m.name,' - [',s.name,']') as name, m.description FROM modules m inner join sites s where m.active='Y' ORDER BY m.name";
+  function get_modules_array() {
+	$sql = "SELECT mid, name, description FROM modules where active='Y'";
 	return 	$this->get_select_array($sql);
   }
   function get_groups_array() {
-	$sql = "SELECT gid, name, description FROM groups";
+	$sql = "SELECT gid, name, description FROM groups where active='Y'";
 	return 	$this->get_select_array($sql);
   }
   function get_contents_array() {
-	$sql = "SELECT cid, concat(title,' - [',sname,'] - [',mname,']') as name FROM contents ORDER BY title"; //vw_contents
+	$sql = "SELECT cid, concat(title,' - [',mname,']') as name FROM contents ORDER BY title"; //vw_contents
 	return 	$this->get_select_array($sql);
   }
 
@@ -556,6 +537,12 @@ class ListBase extends BaseClass
   	$sql = "SELECT name FROM modules WHERE mid=".$mid;
 	$mname = $this->mdb2->queryOne($sql);
 	return $mname;
+  }
+  function get_gname_from_gid($gid)
+  {
+  	$sql = "SELECT name FROM groups WHERE gid=".$gid;
+	$gname = $this->mdb2->queryOne($sql);
+	return $gname;
   }
 }
 ?>

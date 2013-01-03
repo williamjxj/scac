@@ -64,12 +64,6 @@ class ResourcesClass extends ListAdvanced
 		),
 		/*
 		array(
-			'type' => 'textarea',
-			'display_name' => 'Notes:',
-			'id' => 'notes_s',
-			'name' => 'notes',
-		),
-		array(
 			'type' => 'radio',
 			'display_name' => 'Active:',
 			'name' => 'active',
@@ -227,7 +221,6 @@ class ResourcesClass extends ListAdvanced
 	while ($row=$res->fetchRow()) {
 		echo "\t".'<option value="'.$row[0].'">'.$row[0]."</option>\n";
 	}
-	//return $this->get_select_options($sql);
   }
 
   function update_contents_resources()
@@ -276,7 +269,6 @@ class ResourcesClass extends ListAdvanced
 	$sqlc = "SELECT cid, concat(title,'-',author) as title, author FROM contents c WHERE c.cid NOT IN (SELECT cid from contents_resources WHERE rid=".$rid.") AND active='Y' ORDER BY title";
 	return 	$this->get_select_options($sqlc);
   }
-
 }
 
 $rese = new ResourcesClass();
@@ -287,7 +279,6 @@ if(! $rese->check_access()) {
 
 $rese->get_table_info();
 $rese->set_default_config(array('qtip'=>true, 'plupload'=>true, 'calender'=>true));
-
 
 if(isset($_GET['js_search_form'])) {
 	$ary = $rese->get_search_form_settings();
@@ -316,7 +307,6 @@ elseif(isset($_GET['js_edit_form_3'])) {
 		$record = array();
 
 	$data['record'] = $record;
-	$data['sites'] = $rese->get_sites_array();
 	$data['modules'] = $rese->get_modules_array();
 	$data['groups'] = $rese->get_groups_array();
 	$rese->assign('config', $config);
@@ -324,11 +314,7 @@ elseif(isset($_GET['js_edit_form_3'])) {
 	$rese->display($config['templs']['assign_cr']); //'assign_contents-resources.tpl.html'
 }
 elseif(isset($_GET['js_add_form'])) {
-	//$ary = $rese->get_add_form_settings();
-	//$rese->get_add_form($ary);
-	//$header = $rese->get_header($rese->get_mappings());
-	//$rese->assign('header', $header);
-	$data['sites'] = $rese->get_sites_array();
+	$data['modules'] = $rese->get_modules_array();
 	$data['groups'] = $rese->get_groups_array();
 	$rese->assign('config', $config);
 	$rese->assign('data', $data);

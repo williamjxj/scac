@@ -79,13 +79,7 @@ class PagesClass extends ListAdvanced
 			'display_name' => 'URL:',
 			'id' => 'url_s',
 			'name' => 'url',
-		), /*
-		array(
-			'type' => 'date',
-			'display_name' => 'Created:',
-			'name' => 'created',
-			'size' => INPUT_SIZE,
-		), */
+		),
 		array(
 			'type' => 'textarea',
 			'display_name' => 'Description:',
