@@ -1,7 +1,6 @@
 <?php
 
-defined(SITEROOT) or define(SITEROOT, './');
-define('SMARTY_DIR', SITEROOT.'/include/Smarty-3.0.4/libs/');
+defined('SMARTY_DIR') or define('SMARTY_DIR', SITEROOT.'/include/Smarty-3.0.4/libs/');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 require_once('MDB2.php');
 

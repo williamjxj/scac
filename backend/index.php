@@ -1,15 +1,14 @@
 <?php
 session_start();
-define('SITEROOT', './');
+defined('SITEROOT') or define('SITEROOT', getcwd());
+
 require_once(SITEROOT.'/configs/setting.inc.php');
 require_once(SITEROOT.'/configs/config.inc.php');
-require_once(SITEROOT.'/configs/base.inc.php');
-
-define('SMARTY_DIR', SITEROOT.'/include/Smarty-3.0.4/libs/');
-require_once(SMARTY_DIR . 'Smarty.class.php');
 global $config;
 
-$config['path'] = SITEROOT;
+require_once(SITEROOT.'/configs/base.inc.php');
+
+$config['path'] = SITEROOT . '/';
 $config['list'] = get_list_defs($config['path']);
 
 $base = new BaseClass();

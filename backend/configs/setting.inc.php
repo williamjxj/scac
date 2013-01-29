@@ -1,6 +1,6 @@
 <?php
-if (!defined('SITEROOT')) define('SITEROOT', './');
-define("LOGIN", "/scac/backend/index.php");
+defined('SITEROOT') or define('SITEROOT', getcwd());
+define("LOGIN", SITEROOT . "/index.php");
 define('ADMIN_USER', 'admin_users');
 
 // default map file (Display Name <=> DB table columns), used to list all optional columns in 'R'(CRUD).
