@@ -83,4 +83,5 @@ function get_errors() {
 
 $timezone = "America/Vancouver";
 if(function_exists('date_default_timezone_set')) date_default_timezone_set($timezone);
+
 ?>

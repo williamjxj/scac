@@ -29,7 +29,7 @@ class BaseClass extends Smarty
 		$this->compile_dir = SITEROOT.'templates_c/';
 		$this->config_dir = SITEROOT.'configs/';
 		$this->cache_dir = SITEROOT.'cache/';
-		$this->project  = 'scac2';
+		$this->project  = 'scac';
 	}
 	# in this project, use PEAR MDB2 instead of Pure MySQL.
 	public function pear_connect_admin() 

@@ -11,7 +11,7 @@ $mdb2 = BaseClass::pear_connect_admin();
 
 $t = 'scac';
 
-$targetDir = './resources/' . $t . '/';
+$targetDir = '../resources/' . $t . '/';
 if(!file_exists($targetDir)) mkdir($targetDir);
 
 @set_time_limit(5 * 60);

@@ -6,7 +6,7 @@ $config = array(
 	'debug' => true, // usd by smarty templates as well as php.
 	'smarty' => SITEROOT.'/configs/smarty.ini',
 	'top' => array(
-		'Logout' => '/scac2/index.php?logout=1'
+		'Logout' => '/scac/backend/index.php?logout=1'
 	),
 	'footer' => array(),
 	'cores' => get_cores(),

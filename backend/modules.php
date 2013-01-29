@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(E_ALL);
-define('SITEROOT', './');
+defined('SITEROOT') or define('SITEROOT', './');
 
 ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.SITEROOT.'configs/'.PATH_SEPARATOR.SITEROOT.'include/');
 require_once("setting.inc.php");

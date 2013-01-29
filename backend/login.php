@@ -124,7 +124,7 @@ $(function() {
 			},
 			success: function(succ) {
 				if(succ == 'Y')
-					document.location.href='/scac2/';
+					document.location.href='/scac/backend/';
 				else {
 					var msg = "登录信息不正确，请重新输入。";
 					$('#error').html(msg).parent('div').fadeIn(100);
