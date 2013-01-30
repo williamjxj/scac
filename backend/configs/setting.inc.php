@@ -1,6 +1,6 @@
 <?php
-defined('SITEROOT') or define('SITEROOT', getcwd());
-define("LOGIN", SITEROOT . "/index.php");
+defined('SITEROOT') or define('SITEROOT', './');
+define("LOGIN", SITEROOT . "/login.php");
 define('ADMIN_USER', 'admin_users');
 
 // default map file (Display Name <=> DB table columns), used to list all optional columns in 'R'(CRUD).

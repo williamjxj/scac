@@ -1,6 +1,6 @@
 <?php
 session_start();
-define('SITEROOT', './');
+defined('SITEROOT') or define('SITEROOT', './');
 include_once(SITEROOT.'configs/setting.inc.php');
 include_once(SITEROOT.'configs/config.inc.php');
 require_once(SITEROOT.'configs/base.inc.php');
